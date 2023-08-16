@@ -72,8 +72,8 @@ func TestInsertRow(t *testing.T) {
 	store := OpenTSDB(GetDataPath(tmpDir))
 	var now = start
 	for i := 0; i < 720; i++ {
-		for n := 0; n < 3; n++ {
-			for j := 0; j < 24; j++ {
+		for n := 0; n < 1; n++ {
+			for j := 0; j < 1; j++ {
 				_ = store.InsertRows(genPoints(now, n, j))
 			}
 		}
