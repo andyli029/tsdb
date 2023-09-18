@@ -51,7 +51,7 @@ var (
 	defaultOpts = &options{
 		metaSerializer:    newBinaryMetaSerializer(),
 		bytesCompressor:   newNoopBytesCompressor(),
-		segmentDuration:   2 * time.Hour, // 默认两小时
+		segmentDuration:   2 * time.Second, //2 * time.Hour, // 默认两小时
 		retention:         7 * 24 * time.Hour,
 		writeTimeout:      30 * time.Second,
 		onlyMemoryMode:    false,
@@ -71,7 +71,7 @@ type Row struct {
 type Option func(c *options)
 
 const (
-	defaultQueueSize = 512
+	defaultQueueSize = 2 //512
 	separator        = "/-/"
 )
 
@@ -89,6 +89,7 @@ func OpenTSDB(opts ...Option) *TSDB {
 	db.loadFiles()
 
 	worker := runtime.GOMAXPROCS(-1)
+	worker = 1
 	db.ctx, db.cancel = context.WithCancel(context.Background())
 	for i := 0; i < worker; i++ {
 		// 刷盘

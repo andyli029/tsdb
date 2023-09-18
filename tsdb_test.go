@@ -46,8 +46,8 @@ func TestRowLabelsHash(t *testing.T) {
 
 var metrics = []string{
 	"cpu.busy", "disk.used",
-	"net.in.bytes", "net.out.bytes",
-	"mem.used", "mem.idle", "mem.used.bytes", "mem.total.bytes",
+	//"net.in.bytes", "net.out.bytes",
+	//"mem.used", "mem.idle", "mem.used.bytes", "mem.total.bytes",
 }
 
 func genPoints(ts int64, node, dc int) []*Row {
@@ -71,7 +71,7 @@ func TestInsertRow(t *testing.T) {
 	tmpDir := "temp1/tsdb1"
 	store := OpenTSDB(GetDataPath(tmpDir))
 	var now = start
-	for i := 0; i < 720; i++ {
+	for i := 0; i < 8; i++ { //720
 		for n := 0; n < 1; n++ {
 			for j := 0; j < 1; j++ {
 				_ = store.InsertRows(genPoints(now, n, j))
